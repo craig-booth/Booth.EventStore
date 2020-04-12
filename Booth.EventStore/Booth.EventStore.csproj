@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Craig Booth</Authors>
     <Company />
-    <PackageLicenseExpression>MIt</PackageLicenseExpression>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>Booth.png</PackageIcon>
     <Description>Simple event store. Use the database provider nuget package instead of this one</Description>
   </PropertyGroup>
