@@ -5,16 +5,12 @@ VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booth.EventStore", "Booth.EventStore\Booth.EventStore.csproj", "{5E30032C-140F-4071-99BC-89A23B2F655E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booth.EventStore.MongoDB.Test", "Booth.EventStore.MongoDB.Test\Booth.EventStore.MongoDB.Test.csproj", "{28D9E6A3-DCD1-457E-A8C3-DA9C619076F3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booth.EventStore.Test", "Booth.EventStore.Test\Booth.EventStore.Test.csproj", "{F8404D99-9FC9-4232-A1F3-415495713164}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5C2D78FF-5F99-4E44-A54A-F9A06BE18986}"
 	ProjectSection(SolutionItems) = preProject
 		Jenkinsfile = Jenkinsfile
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booth.EventStore.MongoDB", "Booth.EventStore.MongoDB\Booth.EventStore.MongoDB.csproj", "{9B832572-A758-4A4C-9CC0-56624D0B1EBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,18 +22,10 @@ Global
 		{5E30032C-140F-4071-99BC-89A23B2F655E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E30032C-140F-4071-99BC-89A23B2F655E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E30032C-140F-4071-99BC-89A23B2F655E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{28D9E6A3-DCD1-457E-A8C3-DA9C619076F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28D9E6A3-DCD1-457E-A8C3-DA9C619076F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28D9E6A3-DCD1-457E-A8C3-DA9C619076F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28D9E6A3-DCD1-457E-A8C3-DA9C619076F3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F8404D99-9FC9-4232-A1F3-415495713164}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F8404D99-9FC9-4232-A1F3-415495713164}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8404D99-9FC9-4232-A1F3-415495713164}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8404D99-9FC9-4232-A1F3-415495713164}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B832572-A758-4A4C-9CC0-56624D0B1EBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B832572-A758-4A4C-9CC0-56624D0B1EBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B832572-A758-4A4C-9CC0-56624D0B1EBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B832572-A758-4A4C-9CC0-56624D0B1EBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

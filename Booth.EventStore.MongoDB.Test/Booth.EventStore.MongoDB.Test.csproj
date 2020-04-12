@@ -18,9 +18,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Booth.EventStore\Booth.EventStore.csproj" />
-    <ProjectReference Include="..\Booth.EventStove.MongoDB\Booth.EventStore.MongoDB.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -2,8 +2,8 @@ pipeline {
     agent { docker 'mcr.microsoft.com/dotnet/core/sdk:3.0' }
 	
 	environment {
-		PROJECT      = './Booth.EventStore.MongoDB/Booth.EventStore.MongoDB.csproj'
-        TEST_PROJECT = './Booth.EventStore.MongoDB.Test/Booth.EventStore.MongoDB.Test.csproj'
+		PROJECT      = './Booth.EventStore/Booth.EventStore.csproj'
+        TEST_PROJECT = './Booth.EventStore.Test/Booth.EventStore.Test.csproj'
 
 		NUGET_KEY = credentials('nuget')
     }
