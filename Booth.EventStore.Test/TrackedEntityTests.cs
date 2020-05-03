@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
 
-using NUnit.Framework;
+using Xunit;
+using FluentAssertions;
 using Moq;
 
 using Booth.EventStore;
@@ -9,10 +10,10 @@ using System.Collections.Generic;
 
 namespace Booth.EventStore.Test
 {
-    class TrackedEntityTests
+    public class TrackedEntityTests
     {
 
-        [TestCase]
+        [Fact]
         public void FetchSingleEvents()
         {
             var entity = new TrackedEntityTestClass();
@@ -21,10 +22,11 @@ namespace Booth.EventStore.Test
             entity.AddEvent(@event);
 
             var events = entity.FetchEvents();
-            Assert.That(events, Is.EqualTo(new Event[] { @event } ));
+
+            events.Should().Equal(new Event[] { @event } );
         }
 
-        [TestCase]
+        [Fact]
         public void FetchMultpleEvents()
         {
             var entity = new TrackedEntityTestClass();
@@ -36,19 +38,21 @@ namespace Booth.EventStore.Test
             entity.AddEvent(@event2);
 
             var events = entity.FetchEvents();
-            Assert.That(events, Is.EqualTo(new Event[] { @event1, @event2 }));
+
+            events.Should().Equal(new Event[] { @event1, @event2 });
         }
 
-        [TestCase]
+        [Fact]
         public void FetchNoEvents()
         {
             var entity = new TrackedEntityTestClass();
 
             var events = entity.FetchEvents();
-            Assert.That(events, Is.Empty);
+
+            events.Should().BeEmpty();
         }
 
-        [TestCase]
+        [Fact]
         public void ApplyEvents()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -66,14 +70,16 @@ namespace Booth.EventStore.Test
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void ApplyUnkownEventType()
         {
             var entity = new TrackedEntityTestClass();
 
             var @event = new EventTestClass2(Guid.NewGuid(), 0);
 
-            Assert.That(() => entity.ApplyEvents(new Event[] { @event }), Throws.TypeOf(typeof(NotSupportedException)));
+            Action a = () => entity.ApplyEvents(new Event[] { @event });
+            
+            a.Should().ThrowExactly<NotSupportedException>();
         }
 
     }

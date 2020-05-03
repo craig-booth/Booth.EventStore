@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Linq;
 
-using NUnit.Framework;
+using Xunit;
 using Moq;
 
 using Booth.Common;
 using Booth.EventStore;
+using FluentAssertions;
 
 namespace Booth.EventStore.Test
 {
-    class RepositoryTests
+    public class RepositoryTests
     {
 
-        [TestCase]
+        [Fact]
         public void GetWithMatchingId()
         {          
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -28,12 +29,12 @@ namespace Booth.EventStore.Test
             
             var entity = repository.Get(id);
 
-            Assert.That(entity.Id, Is.EqualTo(id));
+            entity.Id.Should().Be(id);
 
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void GetWithoutMatchingId()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -49,12 +50,12 @@ namespace Booth.EventStore.Test
 
             var entity = repository.Get(id);
 
-            Assert.That(entity, Is.Null);
+            entity.Should().BeNull();
 
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void GetAll()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -80,14 +81,14 @@ namespace Booth.EventStore.Test
             var repository = new Repository<TrackedEntityTestClass>(eventStream.Object, entityFactory.Object);
 
 
-            var entities = repository.All().Select(x => x.Id).ToList();
-            
-            Assert.That(entities, Is.EqualTo( new Guid[] { id1, id2, id3 }));
+            var entities = repository.All();
+
+            entities.Should().BeEquivalentTo(new object[] { new { Id = id1 }, new { Id = id2 }, new { Id = id3 } });
 
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void GetAllReturningEmptyList()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -100,12 +101,12 @@ namespace Booth.EventStore.Test
 
             var entities = repository.All();
 
-            Assert.That(entities, Is.Empty);
+            entities.Should().BeEmpty();
 
             mockRepository.Verify(); 
         }
 
-        [TestCase]
+        [Fact]
         public void AddEntity()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -130,7 +131,7 @@ namespace Booth.EventStore.Test
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void AddEntityWithProperties()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -156,7 +157,7 @@ namespace Booth.EventStore.Test
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void UpdateExistingEntity()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -181,7 +182,7 @@ namespace Booth.EventStore.Test
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void FindFirstOnlyMatchingEntity()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -198,13 +199,13 @@ namespace Booth.EventStore.Test
 
             var entity = repository.FindFirst("Property", "Value");
 
-            Assert.That(entity.Id, Is.EqualTo(id));
+            entity.Id.Should().Be(id);
 
             mockRepository.Verify();
         }
 
 
-        [TestCase]
+        [Fact]
         public void FindFirstNoMatchingEntities()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -220,12 +221,12 @@ namespace Booth.EventStore.Test
 
             var entity = repository.FindFirst("Property", "Value");
 
-            Assert.That(entity, Is.Null);
+            entity.Should().BeNull();
 
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void FindSingleMatchingEntity()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -242,12 +243,12 @@ namespace Booth.EventStore.Test
 
             var entities = repository.Find("Property", "Value");
 
-            Assert.That(entities.Count(), Is.EqualTo(1));
+            entities.Should().HaveCount(1);
 
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void FindMultipleMatchingEntities()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -271,12 +272,12 @@ namespace Booth.EventStore.Test
 
             var entity = repository.Find("Property", "Value");
 
-            Assert.That(entity.Count(), Is.EqualTo(2));
+            entity.Should().HaveCount(2);
 
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void FindNoMatchingEntities()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -290,7 +291,7 @@ namespace Booth.EventStore.Test
 
             var entities = repository.Find("Property", "Value");
 
-            Assert.That(entities, Is.Empty);
+            entities.Should().BeEmpty();
 
             mockRepository.Verify();
         }
