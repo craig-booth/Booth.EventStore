@@ -6,6 +6,7 @@ using Moq;
 
 using Booth.Common;
 using Booth.EventStore;
+using FluentAssertions;
 
 namespace Booth.EventStore.Test
 {
@@ -28,7 +29,7 @@ namespace Booth.EventStore.Test
             
             var entity = repository.Get(id);
 
-            Assert.That(entity.Id, Is.EqualTo(id));
+            entity.Id.Should().Be(id);
 
             mockRepository.Verify();
         }
@@ -49,7 +50,7 @@ namespace Booth.EventStore.Test
 
             var entity = repository.Get(id);
 
-            Assert.That(entity, Is.Null);
+            entity.Should().BeNull();
 
             mockRepository.Verify();
         }
@@ -80,9 +81,9 @@ namespace Booth.EventStore.Test
             var repository = new Repository<TrackedEntityTestClass>(eventStream.Object, entityFactory.Object);
 
 
-            var entities = repository.All().Select(x => x.Id).ToList();
-            
-            Assert.That(entities, Is.EqualTo( new Guid[] { id1, id2, id3 }));
+            var entities = repository.All();
+
+            entities.Should().BeEquivalentTo(new object[] { new { Id = id1 }, new { Id = id2 }, new { Id = id3 } });
 
             mockRepository.Verify();
         }
@@ -100,7 +101,7 @@ namespace Booth.EventStore.Test
 
             var entities = repository.All();
 
-            Assert.That(entities, Is.Empty);
+            entities.Should().BeEmpty();
 
             mockRepository.Verify(); 
         }
@@ -198,7 +199,7 @@ namespace Booth.EventStore.Test
 
             var entity = repository.FindFirst("Property", "Value");
 
-            Assert.That(entity.Id, Is.EqualTo(id));
+            entity.Id.Should().Be(id);
 
             mockRepository.Verify();
         }
@@ -220,7 +221,7 @@ namespace Booth.EventStore.Test
 
             var entity = repository.FindFirst("Property", "Value");
 
-            Assert.That(entity, Is.Null);
+            entity.Should().BeNull();
 
             mockRepository.Verify();
         }
@@ -242,7 +243,7 @@ namespace Booth.EventStore.Test
 
             var entities = repository.Find("Property", "Value");
 
-            Assert.That(entities.Count(), Is.EqualTo(1));
+            entities.Should().HaveCount(1);
 
             mockRepository.Verify();
         }
@@ -271,7 +272,7 @@ namespace Booth.EventStore.Test
 
             var entity = repository.Find("Property", "Value");
 
-            Assert.That(entity.Count(), Is.EqualTo(2));
+            entity.Should().HaveCount(2);
 
             mockRepository.Verify();
         }
@@ -290,7 +291,7 @@ namespace Booth.EventStore.Test
 
             var entities = repository.Find("Property", "Value");
 
-            Assert.That(entities, Is.Empty);
+            entities.Should().BeEmpty();
 
             mockRepository.Verify();
         }

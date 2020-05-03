@@ -2,6 +2,7 @@
 using System.Linq;
 
 using NUnit.Framework;
+using FluentAssertions;
 using Moq;
 
 using Booth.EventStore;
@@ -21,7 +22,8 @@ namespace Booth.EventStore.Test
             entity.AddEvent(@event);
 
             var events = entity.FetchEvents();
-            Assert.That(events, Is.EqualTo(new Event[] { @event } ));
+
+            events.Should().Equal(new Event[] { @event } );
         }
 
         [TestCase]
@@ -36,7 +38,8 @@ namespace Booth.EventStore.Test
             entity.AddEvent(@event2);
 
             var events = entity.FetchEvents();
-            Assert.That(events, Is.EqualTo(new Event[] { @event1, @event2 }));
+
+            events.Should().Equal(new Event[] { @event1, @event2 });
         }
 
         [TestCase]
@@ -45,7 +48,8 @@ namespace Booth.EventStore.Test
             var entity = new TrackedEntityTestClass();
 
             var events = entity.FetchEvents();
-            Assert.That(events, Is.Empty);
+
+            events.Should().BeEmpty();
         }
 
         [TestCase]
@@ -73,7 +77,9 @@ namespace Booth.EventStore.Test
 
             var @event = new EventTestClass2(Guid.NewGuid(), 0);
 
-            Assert.That(() => entity.ApplyEvents(new Event[] { @event }), Throws.TypeOf(typeof(NotSupportedException)));
+            Action a = () => entity.ApplyEvents(new Event[] { @event });
+            
+            a.Should().ThrowExactly<NotSupportedException>();
         }
 
     }

@@ -1,6 +1,8 @@
 ﻿using System;
 
 using NUnit.Framework;
+using FluentAssertions;
+using FluentAssertions.Execution;
 
 using Booth.Common;
 using Booth.EventStore;
@@ -19,7 +21,7 @@ namespace Booth.EventStore.Test
 
             eventList.Add(@event);
 
-            Assert.That(eventList.EventsAvailable, Is.True);
+            eventList.EventsAvailable.Should().BeTrue();
         }
 
         [TestCase]
@@ -27,7 +29,7 @@ namespace Booth.EventStore.Test
         {
             var eventList = new EventList();
 
-            Assert.That(eventList.EventsAvailable, Is.False);
+            eventList.EventsAvailable.Should().BeFalse();
         }
 
         [TestCase]
@@ -41,11 +43,11 @@ namespace Booth.EventStore.Test
 
             var events = eventList.Fetch();
 
-            Assert.Multiple(() =>
+            using (new AssertionScope())
             {
-                Assert.That(events, Has.Count.EqualTo(1));
-                Assert.That(eventList.EventsAvailable, Is.False);
-            });
+                events.Should().HaveCount(1);
+                eventList.EventsAvailable.Should().BeFalse();
+            }
         }
 
         [TestCase]
@@ -60,11 +62,12 @@ namespace Booth.EventStore.Test
             eventList.Add(@event);
 
             var events = eventList.Fetch();
-            Assert.Multiple(() =>
+
+            using (new AssertionScope())
             {
-                Assert.That(events, Has.Count.EqualTo(3));
-                Assert.That(eventList.EventsAvailable, Is.False);
-            });
+                events.Should().HaveCount(3);
+                eventList.EventsAvailable.Should().BeFalse();
+            }
         }
 
         [TestCase]
@@ -74,7 +77,7 @@ namespace Booth.EventStore.Test
 
             var events = eventList.Fetch();
 
-            Assert.That(events, Is.Empty);
+            events.Should().BeEmpty();
         }
 
         [TestCase]
@@ -90,11 +93,12 @@ namespace Booth.EventStore.Test
 
             var events = eventList.Fetch();
             var events2 = eventList.Fetch();
-            Assert.Multiple(() =>
+
+            using (new AssertionScope())
             {
-                Assert.That(events, Has.Count.EqualTo(3));
-                Assert.That(events2, Is.Empty);
-            });
+                events.Should().HaveCount(3);
+                events2.Should().BeEmpty();
+            }
         }
     }
 }
