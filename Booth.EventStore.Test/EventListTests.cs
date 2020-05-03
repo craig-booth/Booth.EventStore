@@ -1,6 +1,6 @@
 ﻿using System;
 
-using NUnit.Framework;
+using Xunit;
 using FluentAssertions;
 using FluentAssertions.Execution;
 
@@ -9,10 +9,10 @@ using Booth.EventStore;
 
 namespace Booth.EventStore.Test
 {
-    class EventListTests
+    public class EventListTests
     {
 
-        [TestCase]
+        [Fact]
         public void EventsAvailable()
         {
             var eventList = new EventList();
@@ -24,7 +24,7 @@ namespace Booth.EventStore.Test
             eventList.EventsAvailable.Should().BeTrue();
         }
 
-        [TestCase]
+        [Fact]
         public void EventsAvailableOnEmptyList()
         {
             var eventList = new EventList();
@@ -32,7 +32,7 @@ namespace Booth.EventStore.Test
             eventList.EventsAvailable.Should().BeFalse();
         }
 
-        [TestCase]
+        [Fact]
         public void FetchSingleEvent()
         {
             var eventList = new EventList();
@@ -50,7 +50,7 @@ namespace Booth.EventStore.Test
             }
         }
 
-        [TestCase]
+        [Fact]
         public void FetchThreeEvents()
         {
             var eventList = new EventList();
@@ -70,7 +70,7 @@ namespace Booth.EventStore.Test
             }
         }
 
-        [TestCase]
+        [Fact]
         public void FetchNoEventsAvailable()
         {
             var eventList = new EventList();
@@ -80,7 +80,7 @@ namespace Booth.EventStore.Test
             events.Should().BeEmpty();
         }
 
-        [TestCase]
+        [Fact]
         public void FetchCalledMultipleTimes()
         {
             var eventList = new EventList();

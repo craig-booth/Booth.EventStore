@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using NUnit.Framework;
+using Xunit;
 using Moq;
 
 using Booth.Common;
@@ -10,10 +10,10 @@ using FluentAssertions;
 
 namespace Booth.EventStore.Test
 {
-    class RepositoryTests
+    public class RepositoryTests
     {
 
-        [TestCase]
+        [Fact]
         public void GetWithMatchingId()
         {          
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -34,7 +34,7 @@ namespace Booth.EventStore.Test
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void GetWithoutMatchingId()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -55,7 +55,7 @@ namespace Booth.EventStore.Test
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void GetAll()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -88,7 +88,7 @@ namespace Booth.EventStore.Test
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void GetAllReturningEmptyList()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -106,7 +106,7 @@ namespace Booth.EventStore.Test
             mockRepository.Verify(); 
         }
 
-        [TestCase]
+        [Fact]
         public void AddEntity()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -131,7 +131,7 @@ namespace Booth.EventStore.Test
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void AddEntityWithProperties()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -157,7 +157,7 @@ namespace Booth.EventStore.Test
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void UpdateExistingEntity()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -182,7 +182,7 @@ namespace Booth.EventStore.Test
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void FindFirstOnlyMatchingEntity()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -205,7 +205,7 @@ namespace Booth.EventStore.Test
         }
 
 
-        [TestCase]
+        [Fact]
         public void FindFirstNoMatchingEntities()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -226,7 +226,7 @@ namespace Booth.EventStore.Test
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void FindSingleMatchingEntity()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -248,7 +248,7 @@ namespace Booth.EventStore.Test
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void FindMultipleMatchingEntities()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -277,7 +277,7 @@ namespace Booth.EventStore.Test
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void FindNoMatchingEntities()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);

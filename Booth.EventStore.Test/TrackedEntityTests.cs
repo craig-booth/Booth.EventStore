@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using NUnit.Framework;
+using Xunit;
 using FluentAssertions;
 using Moq;
 
@@ -10,10 +10,10 @@ using System.Collections.Generic;
 
 namespace Booth.EventStore.Test
 {
-    class TrackedEntityTests
+    public class TrackedEntityTests
     {
 
-        [TestCase]
+        [Fact]
         public void FetchSingleEvents()
         {
             var entity = new TrackedEntityTestClass();
@@ -26,7 +26,7 @@ namespace Booth.EventStore.Test
             events.Should().Equal(new Event[] { @event } );
         }
 
-        [TestCase]
+        [Fact]
         public void FetchMultpleEvents()
         {
             var entity = new TrackedEntityTestClass();
@@ -42,7 +42,7 @@ namespace Booth.EventStore.Test
             events.Should().Equal(new Event[] { @event1, @event2 });
         }
 
-        [TestCase]
+        [Fact]
         public void FetchNoEvents()
         {
             var entity = new TrackedEntityTestClass();
@@ -52,7 +52,7 @@ namespace Booth.EventStore.Test
             events.Should().BeEmpty();
         }
 
-        [TestCase]
+        [Fact]
         public void ApplyEvents()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
@@ -70,7 +70,7 @@ namespace Booth.EventStore.Test
             mockRepository.Verify();
         }
 
-        [TestCase]
+        [Fact]
         public void ApplyUnkownEventType()
         {
             var entity = new TrackedEntityTestClass();
