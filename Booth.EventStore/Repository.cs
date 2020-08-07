@@ -22,20 +22,22 @@ namespace Booth.EventStore
         protected ITrackedEntityFactory<T> _EntityFactory;
         protected Func<Guid, string, T> _CreateFunction;
 
-        private Repository(IEventStream<T> eventStream)
+        public Repository(IEventStream<T> eventStream)
+            : this(eventStream, new DefaultTrackedEntityFactory<T>())
         {
-            _EventStream = eventStream;
         }
 
         public Repository(IEventStream<T> eventStream, ITrackedEntityFactory<T> entityFactory)
-            : this(eventStream)
         {
+            _EventStream = eventStream;
             _EntityFactory = entityFactory;
+            _CreateFunction = null;
         }
 
         public Repository(IEventStream<T> eventStream, Func<Guid, string, T> createFunction)
-            : this(eventStream)
         {
+            _EventStream = eventStream;
+            _EntityFactory = null;
             _CreateFunction = createFunction;
         }
 

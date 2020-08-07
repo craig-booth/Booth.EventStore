@@ -9,7 +9,7 @@ namespace Booth.EventStore
         T Create(Guid id, string storedEntityType);
     }
 
-    public class DefaultTrackedEntityFactory<T> : ITrackedEntityFactory<T> where T : ITrackedEntity
+    class DefaultTrackedEntityFactory<T> : ITrackedEntityFactory<T> where T : ITrackedEntity
     {
         public T Create(Guid id, string storedEntityType)
         {
