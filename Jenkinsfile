@@ -1,5 +1,5 @@
 pipeline {
-    agent { docker 'mcr.microsoft.com/dotnet/core/sdk:3.0' }
+    agent { docker 'mcr.microsoft.com/dotnet/core/sdk:5.0' }
 	
 	environment {
 		PROJECT      = './Booth.EventStore/Booth.EventStore.csproj'
