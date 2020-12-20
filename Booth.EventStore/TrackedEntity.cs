@@ -42,7 +42,7 @@ namespace Booth.EventStore
             throw new NotSupportedException();
         }
 
-        public void ApplyEvents(IEnumerable<Event> events)
+        public virtual void ApplyEvents(IEnumerable<Event> events)
         {
             foreach (var @event in events)
             {
