@@ -58,6 +58,7 @@ namespace Booth.EventStore.Test
             var mockRepository = new MockRepository(MockBehavior.Strict);
 
             var entity = mockRepository.Create<TrackedEntityTestClass>(MockBehavior.Loose);
+            entity.CallBase = true;
 
             var @event1 = new EventTestClass(Guid.NewGuid(), 0);
             var @event2 = new EventTestClass(Guid.NewGuid(), 0);
